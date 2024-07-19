@@ -1,4 +1,5 @@
 secure-smtplib
 google-generativeai
 Flask
+Flask-Cors
 requests
