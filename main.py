@@ -5,6 +5,7 @@ from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from flask import Flask, request, jsonify
+import os
 
 # Configuration
 GOOGLE_API_KEY = 'AIzaSyAw2CY3ON0ksUX-JElqJG2GbRGJ2jWMz0Y'
@@ -153,4 +154,5 @@ def reverse_geocode():
     return jsonify({"name": data[0]['name']})
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8080, use_reloader=False)
+    port = int(os.environ.get('PORT', 8080))
+    app.run(debug=True, port=port, use_reloader=False)
