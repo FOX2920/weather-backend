@@ -1,0 +1,4 @@
+secure-smtplib
+google-generativeai
+Flask
+requests
