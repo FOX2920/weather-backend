@@ -8,13 +8,13 @@ from flask import Flask, request, jsonify
 import os
 
 # Configuration
-GOOGLE_API_KEY = 'AIzaSyAw2CY3ON0ksUX-JElqJG2GbRGJ2jWMz0Y'
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 genai.configure(api_key=GOOGLE_API_KEY)
-API_KEY = "6bba8762e4b27a73bee6016d8498ea66"
-SMTP_SERVER = 'smtp.gmail.com'  # Update if using a different email provider
-SMTP_PORT = 587
-EMAIL_ADDRESS = 'tts122403@gmail.com'  # Update with your email address
-EMAIL_PASSWORD = 'bbio askf hohk xoxi'  # Update with your email password
+API_KEY = os.getenv('API_KEY')
+SMTP_SERVER = os.getenv('SMTP_SERVER')
+SMTP_PORT = int(os.getenv('SMTP_PORT', 587))
+EMAIL_ADDRESS = os.getenv('EMAIL_ADDRESS')
+EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
 
 app = Flask(__name__)
 
