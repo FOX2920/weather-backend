@@ -3,3 +3,4 @@ google-generativeai
 Flask
 Flask-Cors
 requests
+python-dotenv
