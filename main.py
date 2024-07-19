@@ -5,6 +5,7 @@ from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import os
 
 # Configuration
@@ -17,8 +18,9 @@ EMAIL_ADDRESS = os.getenv('EMAIL_ADDRESS')
 EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
 
 app = Flask(__name__)
+CORS(app)
 
-def get_weather(api_key, city):
+def fetch_weather_data(api_key, city):
     current_url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
     current_response = requests.get(current_url)
     current_data = current_response.json()
@@ -78,7 +80,7 @@ def get_weather_report():
     if not city or not email:
         return jsonify({'error': 'City name and email are required'}), 400
     
-    weather_data = get_weather(API_KEY, city)
+    weather_data = fetch_weather_data(API_KEY, city)
     
     if weather_data:
         email_content = generate_weather_email_gemini(city, weather_data)
@@ -86,7 +88,7 @@ def get_weather_report():
         return jsonify({'message': 'Email sent successfully'})
     else:
         return jsonify({'error': 'Failed to retrieve weather data'}), 500
-    
+
 @app.route('/api/weather', methods=['GET'])
 def get_weather():
     latitude = request.args.get('lat')
